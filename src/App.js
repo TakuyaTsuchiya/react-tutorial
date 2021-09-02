@@ -3,7 +3,7 @@ import { fetchImages } from "./api";
 
 const Header = () => {
   return (
-    <header>
+    <header className="hero is-dark is-bold">
       <h1 className="title">Cute Dog Images</h1>
     </header>
   );
@@ -11,9 +11,13 @@ const Header = () => {
 
 const Image = (props) => {
   return (
-    <figure>
-      <img src={props.src} alt="cute dog!" />
-    </figure>
+    <div className="card">
+      <div className="card-image">
+        <figure className="image">
+          <img src={props.src} alt="cute dog!" />
+        </figure>
+      </div>
+    </div>
   );
 };
 
@@ -27,14 +31,16 @@ const Gallery = (props) => {
     return <Loading />;
   }
   return (
-    <div>
-      {urls.map((url) => {
-        return (
-          <div key={url}>
-            <Image src={url} />
-          </div>
-        );
-      })}
+    <div className="columns is-vcentered is-multiline">
+      <div className="column is-3">
+        {urls.map((url) => {
+          return (
+            <div key={url}>
+              <Image src={url} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
@@ -50,6 +56,7 @@ const Form = (props) => {
       <select name="breed" defaultValue="shiba">
         <option value="shiba">柴犬</option>
         <option value="akita">秋田犬</option>
+        <option value="bluetick">bluetick</option>
       </select>
       <button type="submit">リロードする</button>
     </form>
@@ -70,8 +77,8 @@ const Main = () => {
   };
   return (
     <main>
-      <section>
-        <div>
+      <section className="section">
+        <div className="container">
           <Form onFormSubmit={reloadImages} />
           <Gallery urls={urls} />
         </div>
